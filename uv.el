@@ -669,10 +669,10 @@ suitable.  Use `uv-lock' instead."
    ("t" "tool run – run a python tool" uv-tool-run)
    ("R" "run – Run a command or script" uv-run)])
 
-(defun uv--do-command (command)
+(defun uv--do-command (command &optional on-project-root)
   "Perform COMMAND in a compint compile buffer in the project's root dir."
   (let* ((project (project-current))
-         (default-directory (if project (project-root project) default-directory)))
+         (default-directory (if (and on-project-root project) (project-root project) default-directory)))
     (let ((buf (compile command t))
           (hook uv--after-run-hook)
           (fail-hook uv--run-fail-hook))
